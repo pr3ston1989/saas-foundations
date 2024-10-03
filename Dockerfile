@@ -9,6 +9,11 @@ RUN python -m venv /opt/venv
 ARG DJANGO_SECRET_KEY
 ENV DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
 
+ARG DJANGO_DEBUG=0
+ENV DJANGO_DEBUG=${DJANGO_DEBUG}
+
+
+
 # Set the virtual environment as the current location
 ENV PATH=/opt/venv/bin:$PATH
 
