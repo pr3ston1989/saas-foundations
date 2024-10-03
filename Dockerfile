@@ -6,6 +6,9 @@ FROM python:${PYTHON_VERSION}
 # Create a virtual environment
 RUN python -m venv /opt/venv
 
+ARG DJANGO_SECRET_KEY
+ENV DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
+
 # Set the virtual environment as the current location
 ENV PATH=/opt/venv/bin:$PATH
 
@@ -46,7 +49,9 @@ RUN pip install -r /tmp/requirements.txt
 # Database isn't available during build
 # Run any other commands that do not need the database
 # Such as:
-# RUN python manage.py collectstatic --noinput
+RUN python manage.py vendor_pull
+RUN python manage.py collectstatic --noinput
+# whitenoise
 
 # Set the Django default project name
 ARG PROJ_NAME="cfehome"
